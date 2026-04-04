@@ -1,11 +1,11 @@
-name: CI Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
     branches: ["main"]
 
 jobs:
-  build:
+  build-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,3 +32,18 @@ jobs:
 
       - name: Push Docker Image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/taskflow:latest
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            docker rm -f taskflow || true
+            docker pull ${{ secrets.DOCKER_USERNAME }}/taskflow:latest
+            docker run -d \
+              --name taskflow \
+              --network taskflow-net \
+              -p 80:8080 \
+              ${{ secrets.DOCKER_USERNAME }}/taskflow:latest
