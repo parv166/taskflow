@@ -40,13 +40,12 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_KEY }}
           script: |
-            if [ ! -d "taskflow" ]; then
-              git clone https://github.com/parv166/taskflow.git
-            fi
+           
+            cd ~/taskflow || git clone https://github.com/parv166/taskflow.git && cd taskflow
 
-            cd taskflow
+            git reset --hard
             git pull
 
-            docker compose down || true
-            docker compose pull
-            docker compose up -d
+            docker-compose down || true
+            docker-compose pull
+            docker-compose up -d
