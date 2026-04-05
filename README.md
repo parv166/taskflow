@@ -252,7 +252,23 @@ All major DevOps work was handled manually, including:
 * 🔑 Implement authentication (JWT)
 
 ---
+## 🎥 Project Demo
 
+👉 Watch full working demo:
+https://drive.google.com/file/d/10F2jzNkUctE0XAxAeonjbvDT2L0mm-TL/view?usp=sharing
+
+
+---
+
+### What this demo shows:
+
+* Full-stack application working (Frontend + Backend + Database)
+* Docker Compose managing multi-container setup
+* Persistent data storage using volumes
+* CI/CD pipeline deploying application automatically
+* Real-time debugging and system flow
+
+---
 ## 👨‍💻 Author
 
 **Parv Chandegara**
